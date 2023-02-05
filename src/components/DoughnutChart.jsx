@@ -1,0 +1,82 @@
+import { Divider, Paper, Typography } from '@mui/material';
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import {Chart as ChartJS, ArcElement, Tooltip, Legend} from 'chart.js'
+import {Doughnut} from 'react-chartjs-2'
+
+ChartJS.register(ArcElement,Tooltip,Legend,ChartDataLabels);
+
+const DoughnutChart = ({stats}) => {
+    const labels=[]
+    const arrData=[]
+    if(stats?.numOpenedTask){
+        labels.push('Open')
+        arrData.push(stats?.numOpenedTask)
+    }
+    if(stats?.numProgressTask){
+        labels.push('In Progress')
+        arrData.push(stats?.numProgressTask)
+    } 
+    if(stats?.numHoldTask){
+        labels.push('On Hold')
+        arrData.push(stats?.numHoldTask)
+    } 
+    if(stats?.numClosedTask){
+        labels.push('Closed')
+        arrData.push(stats?.numClosedTask)
+    } 
+    const data={
+        labels,
+        datasets:[
+            {
+                label:'Number of Tasks',
+                data:arrData,
+                backgroundColor:[
+                    'rgba(255, 99, 132, 0.4)',
+                    'rgba(54, 162, 235, 0.4)',
+                    'rgba(255, 206, 86, 0.4)',
+                    'rgba(75, 192, 192, 0.4)',
+                ],
+                borderColor:[
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                ],
+                borderWidth:2,            
+            }
+        ]
+    }
+    const options={
+        cutoutPercentage: 50,
+        responsive:true,
+        plugins:{
+            legend:{
+                position:'bottom'
+            },
+            datalabels: {
+                formatter: (value, ctx) => {
+                    let sum = 0;
+                    let dataArr = ctx.chart.data.datasets[0].data;
+                    dataArr.map(data => {
+                        sum += data;
+                    });
+                    let percentage = (value*100 / sum).toFixed(2)+"%";
+                    return percentage;
+                },
+                color: '#000',
+            }
+        }
+    }
+    return (
+        <Paper elevation={4} sx={{
+            p:'8px',
+            width:'320px'
+        }}>
+            <Typography variant='h6' component='body'>Number of status</Typography>
+            <Divider sx={{mb:'2px'}}/>
+            <Doughnut data={data} options={options}/>
+        </Paper>
+    )
+}
+
+export default DoughnutChart
