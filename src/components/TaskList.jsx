@@ -142,8 +142,11 @@ const TaskList = () => {
             boxShadow:2,
             border:2,
             borderColor:'#1976d2',
+            '& .MuiDataGrid-cell':{
+              fontWeight:300,
+            },
             '& .MuiDataGrid-cell:hover':{
-              color:'#1976d2'
+              color:'#1976d2',
             },
             "& .MuiDataGrid-columnHeaders": {
               backgroundColor: "#f9f9f9",

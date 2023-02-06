@@ -14,7 +14,7 @@ const TabPanel=(props)=>{
       {...other}
     >
       {value===index && (
-        <Box sx={{p:3,display:'flex',flexDirection:'column',gap:'12px'}}>
+        <Box sx={{p:3,display:'flex',flexDirection:'column',justifyContent:'space-between',gap:'32px',bgcolor:'#F8F8F8'}}>
           {children}
         </Box>
       )}
@@ -35,7 +35,7 @@ const allyProps=(index)=>{
   }
 }
 
-const LineChart = () => {
+const DashTabs = ({tasks}) => {
   const [tabValue,setTabValue]=useState(0);
   const handleChange=(e,newValue)=>{
     setTabValue(newValue)
@@ -53,22 +53,22 @@ const LineChart = () => {
         </Tabs>
       </Box>
       <TabPanel value={tabValue} index={0}>
-        <TaskBar/>
-        <TaskBar/>
-        <TaskBar/>
+        {tasks?.sort((a,b)=>new Date(a?.dueDate).getTime()-new Date(b?.dueDate).getTime()).filter((task)=>task?.status==='OPEN').slice(0,3).map((taskData)=>(
+          <TaskBar taskData={taskData}/>
+        ))}
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        <TaskBar/>
-        <TaskBar/>
-        <TaskBar/>
+        {tasks?.sort((a,b)=>new Date(a?.dueDate).getTime()-new Date(b?.dueDate).getTime()).filter((task)=>task?.status==='CLOSED').slice(0,3).map((taskData)=>(
+          <TaskBar taskData={taskData}/>
+        ))}
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-        <TaskBar/>
-        <TaskBar/>
-        <TaskBar/>
+      {tasks?.sort((a,b)=>new Date(a?.dueDate).getTime()-new Date(b?.dueDate).getTime()).filter((task)=>task?.completed===true).slice(0,3).map((taskData)=>(
+          <TaskBar taskData={taskData}/>
+        ))}
       </TabPanel>
     </Paper>
   )
 }
 
-export default LineChart
+export default DashTabs;

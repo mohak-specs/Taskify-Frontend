@@ -6,13 +6,12 @@ import Loader from "./Loader"
 
 // Icons
 import {AiFillFolderOpen} from 'react-icons/ai'
-import {HiLockClosed} from 'react-icons/hi'
+import {IoCheckmarkDone} from 'react-icons/io5'
 import {IoMdNotificationsOutline} from 'react-icons/io'
 import StatCard from "./StatCard"
 import { useTitle } from "../utils/useTitle"
 import DoughnutChart from "./DoughnutChart"
 import DashTabs from "./DashTabs"
-import { Paper,Typography } from "@mui/material"
 
 const Dashboard = () => {
   const user=fetchUser()
@@ -60,17 +59,17 @@ const Dashboard = () => {
         <div className="dashboard__overview">
           <div className="dashboard__charts">
             <DoughnutChart stats={taskData?.stats}/>
-            <DashTabs/>
+            <DashTabs tasks={taskData?.tasks}/>
           </div>
-          <Paper elevation={4} sx={{display:'flex',justifyContent:'center',alignItems:'center'}} className="dashboard__tabs">
+          {/* <Paper elevation={4} sx={{display:'flex',justifyContent:'center',alignItems:'center'}} className="dashboard__tabs">
               <Typography>Line Chart for task completed V/s month</Typography>
               <Typography>Coming Soon...</Typography>
-          </Paper>
+          </Paper> */}
         </div>
         <div className="dashboard__stats">
           <StatCard statType={'TASKS OPENED'} statData={taskData?.stats?.numOpenedTask} icon={AiFillFolderOpen}/>
           <StatCard statType={'UNREAD TASK UPDATES'} statData={notifyData?notifyData.unread:0} icon={IoMdNotificationsOutline}/>
-          <StatCard statType={'TASKS COMPLETED'} statData={taskData?.stats?.numCompletedTask} icon={HiLockClosed}/>
+          <StatCard statType={'TASKS COMPLETED'} statData={taskData?.stats?.numCompletedTask} icon={IoCheckmarkDone}/>
         </div>
       </div>
     </div>

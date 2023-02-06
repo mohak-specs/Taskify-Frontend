@@ -242,6 +242,7 @@ textarea{
     /* overflow-x: hidden; */
     display: flex;
     height: 100vh;
+    background-color: #fcfcfc;
 }
 .home__sidebar{
     height: 100%;
@@ -266,77 +267,6 @@ hr {
     margin-top: 4px;
   }
 /* main sidebar */
-.sidebar__title>a{
-    text-decoration: none;
-    color: black;
-}
-.sidebar__links{
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 32px;
-    margin-top: 30px;
-}
-.sidebar__upper{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-}
-.sidebar__links .sidebar__upper>a{
-    width: 90%;
-    text-decoration: none;
-    font-size: 1.5em;
-    color: #000080;
-    background-color: #ffffff;
-    border: 2px solid #9f9f9f;
-    border-radius: 8px; 
-    transition: cubic-bezier(0.895, 0.03, 0.685, 0.22) 0.1s;
-}
-.sidebar__links .sidebar__upper>a:hover{
-    background-color: #000080;
-    color: #fff;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.sidebar__btn{
-    width: 100%;
-    display: flex;
-    gap: 4px;
-    justify-content:space-around;
-    align-items: center;
-    border-radius: 8px;
-}
-.sidebar__btn.active{
-    background-color: #000080;
-    color: #fff;
-}
-.sidebar__links>button {
-    background-color: #ffffff;
-    color: #000080;
-    border: 2px solid #000080; 
-    border-radius: 5px;
-    padding: 10px 20px;
-    width: 60%;
-    margin-bottom: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.1s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  }
-  
-.sidebar__links>button:hover{
-    background-color: #000080;
-    color: #ffffff;
-    cursor: pointer;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
 
 /* main content */
 .home__screen{
@@ -382,7 +312,8 @@ hr {
 .dashboard__stats{
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    gap: 24px;
 }
 .dashboard__tabs{
     flex-grow: 1;

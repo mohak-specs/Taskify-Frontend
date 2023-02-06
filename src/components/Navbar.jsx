@@ -25,7 +25,7 @@ const pages=[
         id:3,
         name:'Account',
         path:'/account'
-    }
+    },
 ]
 
 const drawerWidth=240;
@@ -104,7 +104,6 @@ const Navbar = (props) => {
                     <div className="nav__container">
                         <div onClick={()=>{
                             navigate('/dashboard')
-                            setTab(0)
                             }}>
                             <Typography variant='h4' className='nav__title'>Taski<span style={{color:'#1976d2'}}>Fy</span></Typography>
                         </div>
