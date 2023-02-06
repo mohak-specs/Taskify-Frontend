@@ -11,7 +11,9 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Dashboard from './components/Dashboard'
 import Account from './components/Account'
 import './App.css'
-axios.defaults.baseURL='http://localhost:3500/api'
+// axios.defaults.baseURL='http://localhost:3500/api'
+
+axios.defaults.baseURL='https://taskify-backend.onrender.com/api';
 function App() {
   return (
     <Routes>
