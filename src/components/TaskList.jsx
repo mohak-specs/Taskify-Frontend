@@ -135,7 +135,7 @@ const TaskList = () => {
           onRowClick={handleRowClick}
           getRowClassName={(params)=>`datagrid__row ${params.row.isLate?'late':''}`}
           getRowSpacing={params=>({
-            top:params.isFirstVisible?0:2,
+            top:params.isFirstVisible?5:2,
             bottom:params.isLastVisible?0:2
           })}
           sx={{

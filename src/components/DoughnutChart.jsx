@@ -74,7 +74,11 @@ const DoughnutChart = ({stats}) => {
         }}>
             <Typography variant='h6' component='body'>Number of status</Typography>
             <Divider sx={{mb:'2px'}}/>
-            <Doughnut data={data} options={options}/>
+            {labels.length!==0?(
+                <Doughnut data={data} options={options}/>
+            ):(
+                <Typography variant='h5'>No data...</Typography>
+            )}
         </Paper>
     )
 }

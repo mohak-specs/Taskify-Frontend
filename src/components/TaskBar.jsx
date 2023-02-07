@@ -1,4 +1,4 @@
-import { Box,Chip,Divider,Stack, Typography } from "@mui/material"
+import { Box,Chip,Stack, Typography } from "@mui/material"
 import {useNavigate} from 'react-router-dom'
 import {findColorByStatus} from '../utils/statusChipData'
 import {getDate} from '../utils/getDate'
@@ -40,7 +40,7 @@ const TaskBar = ({taskData}) => {
          </Stack>
        </Box>
       ):(
-        <h1 style={{fontSize:400}}>No data...</h1>
+        <h1 style={{fontSize:400,position:'fixed'}}>No data...</h1>
       )}
     </>
     
