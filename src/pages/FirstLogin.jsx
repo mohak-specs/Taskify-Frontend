@@ -11,7 +11,6 @@ const FirstLogin = () => {
   const user=fetchUser()
   const {token,data}=user?user:{token:'',data:''}
   const [formData,setFormData]=useState({
-    username:data?data?.username:'',
     password:'',
     confirmPassword:''
   })
@@ -39,7 +38,7 @@ const FirstLogin = () => {
   const handleSubmit=async(e)=>{
     e.preventDefault()
     await firstReset(token,formData)
-    setFormData({username:data?data.username:'',password:'',confirmPassword:''})
+    setFormData({password:'',confirmPassword:''})
   }
   useTitle('First Login')
   useEffect(()=>{
@@ -62,13 +61,6 @@ const FirstLogin = () => {
         <h2>Change your password</h2>
         <form onSubmit={handleSubmit} className="flex-form">
           <FormControl sx={{display:'flex',flexDirection:'column',gap:'8px',marginY:'8px'}}>
-            <TextField
-              label='Username'
-              type='text'
-              value={formData.username}
-              name='username'
-              onChange={handleChange}
-            />
             <TextField
               label='Password'
               type='password'
