@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import fetchUser from '../utils/fetchUser'
 import Loader from './Loader'
 import {useNavigate} from 'react-router-dom'
-import { Autocomplete,Button,Divider,MenuItem,Select,Stack,TextField,Typography} from '@mui/material'
+import { Autocomplete,Button,Stack,TextField,Typography,Box} from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -91,8 +91,7 @@ const CreateTask = () => {
     setDueDate(null)
     setStartDate(null)
   }
-
-
+  
   return (
     <div>
       <Loader isLoading={isLoading}/>
@@ -123,11 +122,15 @@ const CreateTask = () => {
             multiple
             id="tags-filled"
             options={accountData}
-            getOptionLabel={(option) => option?.name}
-            // filterSelectedOptions
+            getOptionLabel={(option)=>option?.name}
+            renderOption={(props, option) => (
+              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                {option?.name} ({option?.dept}) {option?.email}
+              </Box>
+            )}
+            filterSelectedOptions
             onChange={handleChangeComplete}
             name='assignTo'
-
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -154,7 +157,6 @@ const CreateTask = () => {
             />
           </LocalizationProvider>
         </div>
-        {/* <button className='create__submit' type='submit'>Add Task</button> */}
         <Button type='submit' variant='contained' size='large' fullWidth sx={{mt:2,'&:hover':{bgcolor:'#1565c0'}}}>Add Task</Button>
       </form>
       </div>
