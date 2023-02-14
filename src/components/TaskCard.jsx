@@ -215,18 +215,21 @@ const TaskCard = () => {
           )}
         </Stack>
         <Divider sx={{borderBottomWidth:5}} textAlign='center'><Typography variant='h6' sx={{color:'#000080'}}>Update Task</Typography></Divider>
-        {taskData?.assignTo.map((user)=>user._id).concat([taskData?.author._id]).includes(data?._id) && (
+        {taskData?.assignTo.map((user)=>user._id).concat([taskData?.author._id]).includes(data?._id) && taskData?.status!=='COMPLETED' && (
             <form onSubmit={handleUpdateSubmit}>
             <FormControl sx={{width:'100%',display:'flex',flexDirection:'column',gap:'4px'}}>
             <Stack direction='row' justifyContent='space-between' alignItems='center'>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label='New due date'
-                  value={updateDueDate}
-                  onChange={(newValue)=>setUpdateDueDate(newValue)}
-                  renderInput={(params)=><TextField size='small' {...params}/>}
-                />
-              </LocalizationProvider>
+              {taskData?.author._id===data?._id && (
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label='New due date'
+                    value={updateDueDate}
+                    onChange={(newValue)=>setUpdateDueDate(newValue)}
+                    renderInput={(params)=><TextField size='small' {...params}/>}
+                  />
+                </LocalizationProvider>
+              )}
+              
               <FormControl>
                 <InputLabel id='update-status'>Update Status</InputLabel>
                 <Select

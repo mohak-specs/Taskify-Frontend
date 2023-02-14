@@ -2,9 +2,9 @@ import { useEffect, useMemo, useState } from "react"
 import { useNavigate} from "react-router-dom"
 import {toast} from 'react-toastify'
 import axios from "axios"
-import {Stack,Badge,Typography, Select, FormControl, InputLabel, MenuItem,Autocomplete,TextField} from '@mui/material'
+import {Stack,Badge,Typography, Select, FormControl, InputLabel, MenuItem} from '@mui/material'
 import MailIcon from '@mui/icons-material/Mail';
-import { DataGrid } from "@mui/x-data-grid"
+import { DataGrid,GridToolbar } from "@mui/x-data-grid"
 import dayjs from "dayjs"
 import fetchUser from "../utils/fetchUser"
 import Loader from "./Loader"
@@ -59,14 +59,14 @@ const TaskList = () => {
       headerName:'Start Date',
       headerClassName: 'task__list__header',
       width:110,
-      renderCell:params=>dayjs(params.row?.startDate).format('DD/MM/YYYY')
+      renderCell:params=>dayjs(params.row?.startDate).format('DD-MM-YYYY')
     },
     {
       field:'dueDate',
       headerName:'Due Date',
       headerClassName: 'task__list__header',
       width:110,
-      renderCell:params=>dayjs(params.row?.dueDate).format('DD/MM/YYYY')
+      renderCell:params=>dayjs(params.row?.dueDate).format('DD-MM-YYYY')
     },
     {
       field:'assignTo',
@@ -127,13 +127,15 @@ const TaskList = () => {
           rows={taskData?taskData.tasks:{}}
           getRowId={row=>row?._id}
           getRowHeight={()=>'auto'}
-          density='comfortable'
+          components={{Toolbar:GridToolbar}}
           rowsPerPageOptions={[15,30,50]}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize)=>setPageSize(newPageSize)}
           disableSelectionOnClick
           onRowClick={handleRowClick}
-          getRowClassName={(params)=>`datagrid__row ${params.row.isLate?'late':''}`}
+          getRowClassName={(params)=>{
+            return `datagrid__row ${(['OPEN','IN PROGRESS'].includes(params.row?.status) && params.row.isLate)?'late':''} ${(params.row.status==='IN PROGRESS' && !params.row?.isLate)?'yellow':''} ${['CLOSED','COMPLETED'].includes(params.row?.status)?'green':''}`
+          }}
           getRowSpacing={params=>({
             top:params.isFirstVisible?5:2,
             bottom:params.isLastVisible?0:2

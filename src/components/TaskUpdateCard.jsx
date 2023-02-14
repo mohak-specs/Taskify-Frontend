@@ -1,5 +1,5 @@
 import { Typography,Box, Divider } from "@mui/material"
-import { DataGrid } from "@mui/x-data-grid"
+import { DataGrid,GridToolbar } from "@mui/x-data-grid"
 import { useMemo, useState } from "react"
 import { getDate, getDateTime } from "../utils/getDate"
 
@@ -48,6 +48,7 @@ const TaskUpdateCard = ({taskUpdates}) => {
         rowsPerPageOptions={[10,30,50]}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize)=>setPageSize(newPageSize)}
+        components={{Toolbar:GridToolbar}}
         getRowSpacing={params=>({
           top:params.isFirstVisible?0:2,
           bottom:params.isLastVisible?0:2

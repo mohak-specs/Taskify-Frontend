@@ -3,6 +3,7 @@ import fetchUser from "../utils/fetchUser"
 import axios from "axios"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
+import {Typography,Paper, Stack} from '@mui/material'
 
 // Icons
 import {AiFillFolderOpen} from 'react-icons/ai'
@@ -61,10 +62,26 @@ const Dashboard = () => {
             <DoughnutChart stats={taskData?.stats}/>
             <DashTabs tasks={taskData?.tasks}/>
           </div>
-          {/* <Paper elevation={4} sx={{display:'flex',justifyContent:'center',alignItems:'center'}} className="dashboard__tabs">
-              <Typography>Line Chart for task completed V/s month</Typography>
-              <Typography>Coming Soon...</Typography>
-          </Paper> */}
+          <Paper elevation={4} sx={{display:'flex',flexDirection:'column',gap:'4px',p:'8px'}} className="dashboard__tabs">
+              <Typography sx={{mt:'8px',fontSize:24}}>New update 0.0.1 features</Typography>
+              <Stack flexDirection='row' gap={4}>
+                <Stack flexWrap='wrap'>
+                  <Typography variant="body1">Major Changes</Typography>
+                  <Typography variant="body2" fontWeight={300}>You can assign a task to yourself</Typography>
+                  <Typography variant="body2" fontWeight={300}>Introduced task color system (Red for late,Yellow for in progress,Green for closed/completed)</Typography>
+                  <Typography variant="body2" fontWeight={300}>Now only task author can change committed date, you can update author to change due date</Typography>
+                  <Typography variant="body2" fontWeight={300}>Export tasks list and updates(only csv is supported as of now)</Typography>
+                </Stack>
+                <Stack>
+                  <Typography variant="body1">Minor Changes</Typography>
+                  <Typography variant="body2" fontWeight={300}>Author can not change status to completed if current status is on hold or cancelled</Typography>
+                  <Typography variant="body2" fontWeight={300}>Fixed assign task sorting in create task form</Typography>
+                  <Typography variant="body2" fontWeight={300}>Date format is changed to DD MM,YYYY HH:MM AM/PM</Typography>
+                  <Typography variant="body2" fontWeight={300}>Added link to website in task emails</Typography>
+                  <Typography variant="body2" fontWeight={300}>Added task name in subject of every task email</Typography>
+                </Stack>
+              </Stack>
+          </Paper>
         </div>
         <div className="dashboard__stats">
           <StatCard statType={'TASKS OPENED'} statData={taskData?.stats?.numOpenedTask} icon={AiFillFolderOpen}/>

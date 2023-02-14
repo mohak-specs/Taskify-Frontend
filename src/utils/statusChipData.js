@@ -22,7 +22,7 @@ const findColorByStatus=(status)=>{
         }
     ]
     const found=statusChip.find((data)=>data.status===status)
-    return found.color;
+    return found?.color;
 }
 
 export {findColorByStatus}

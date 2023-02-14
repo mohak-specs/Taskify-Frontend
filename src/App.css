@@ -348,21 +348,25 @@ hr {
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
-    background-color:  #f1f1f1;
+    background-color:  #f9f9f9;
     box-shadow: rgba(25, 118, 210,0.5) 0px 0px 0px 3px;
     border-radius: 12px;
-    padding: 2em;
+    padding: 2em !important;
 }
-.create__form>label{
+.create__form__child{
+    display: flex;
+    flex-direction: column;
+}
+.create__form__child>label{
     font-size: 1.2em;
     margin-bottom: 0.5em;
 }
-.create__form>input,textarea{
+.create__form__child>input,textarea{
     width: 100%;
     padding: 0.5em;
     margin-bottom: 1em;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #969696;
 }
 #tags-filled{
     background:none;
@@ -448,6 +452,22 @@ hr {
 .datagrid__row.late:hover{
     background-color: rgb(255,199,206) !important;
     color:rgb(156,0,6) !important;
+}
+.datagrid__row.yellow{
+    background-color: #FFFFE0 !important;
+    color: #8B8000 !important;
+}
+.datagrid__row.yellow:hover{
+    background-color: #FFFFE0 !important;
+    color: #8B8000 !important;
+}
+.datagrid__row.green{
+    background-color: #ddfada !important;
+    color: #015d01 !important;
+}
+.datagrid__row.green:hover{
+    background-color: #ddfada !important;
+    color: #015d01 !important;
 }
 .nav__title{
     text-decoration: none;

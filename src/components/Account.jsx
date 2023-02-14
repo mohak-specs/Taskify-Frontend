@@ -84,10 +84,10 @@ const Account = () => {
             <Typography variant="h6" fontFamily='inherit'>Email</Typography>
             <TextField variant="standard" InputProps={{readOnly: true}} value={data?.email}/>
           </Stack>
-          <Stack direction='column' justifyContent='center'>
+          {/* <Stack direction='column' justifyContent='center'>
             <Typography variant="h6" fontFamily='inherit'>Username</Typography>
             <TextField variant="standard" InputProps={{readOnly: true}} value={data?.username}/>
-          </Stack>
+          </Stack> */}
           <Stack direction='column' justifyContent='center'>
             <Typography variant="h6" fontFamily='inherit'>Department</Typography>
             <TextField variant="standard" InputProps={{readOnly: true}} value={data?.dept}/>
