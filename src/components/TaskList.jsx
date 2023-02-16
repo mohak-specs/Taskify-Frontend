@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState } from "react"
 import { useNavigate} from "react-router-dom"
 import {toast} from 'react-toastify'
 import axios from "axios"
-import {Stack,Badge,Typography, Select, FormControl, InputLabel, MenuItem} from '@mui/material'
+import {Stack,Badge,Typography, Select, FormControl, InputLabel, MenuItem, Button} from '@mui/material'
 import MailIcon from '@mui/icons-material/Mail';
+import AddIcon from '@mui/icons-material/Add';
 import { DataGrid,GridToolbar } from "@mui/x-data-grid"
 import dayjs from "dayjs"
 import fetchUser from "../utils/fetchUser"
@@ -121,6 +122,17 @@ const TaskList = () => {
                 <MenuItem value='Created By You'>Created By You</MenuItem>
               </Select>
           </FormControl>
+          <Button 
+            variant="contained"
+            size="large" 
+            color="info"
+            startIcon={<AddIcon/>}
+            onClick={()=>{
+              navigate('/create')
+            }}
+            >
+              Create Task
+            </Button>
         </Stack>
         <DataGrid
           columns={columns}
