@@ -2,15 +2,17 @@ import { useEffect, useState } from "react"
 import landingBg from '../assets/landing-bg.svg'
 import axios from 'axios'
 import {toast} from 'react-toastify'
-import { useNavigate,NavLink } from "react-router-dom"
+import { useNavigate,NavLink,useLocation } from "react-router-dom"
 import {AiOutlineEye,AiOutlineEyeInvisible} from 'react-icons/ai'
 import Loader from '../components/Loader'
 import fetchUser from "../utils/fetchUser"
-axios.defaults.baseURL='http://localhost:3500/api'
+// axios.defaults.baseURL='http://localhost:3500/api'
 
 const Landing = () => {
   const user=fetchUser()
   const navigate=useNavigate()
+  const {state} = useLocation()
+  let redirectUrl = state?.redirectUrl
   const [isLoading,setIsLoading]=useState(false)
   const [userData,setUserData]=useState(null)
   const [showPassword,setShowPassword]=useState(false)
@@ -25,7 +27,12 @@ const Landing = () => {
       setUserData(res.data)
       toast.success(`Welcome ${res.data?.data?.name}`)
       localStorage.setItem('user',JSON.stringify(res.data))
-      navigate('/dashboard')
+      if(redirectUrl){
+        navigate(redirectUrl,{replace:true})
+        redirectUrl=''
+      }else{
+        navigate('/dashboard',{replace:true})
+      }
     }catch(err){
       toast.error(err.response?.data?.message)
     }finally{

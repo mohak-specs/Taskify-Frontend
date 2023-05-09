@@ -5,7 +5,7 @@ import fetchUser from "../utils/fetchUser"
 const ProtectedRoute = ({children}) => {
   const user=fetchUser()
   if(!user){
-    <Navigate to='/'/>
+    <Navigate to='/' replace/>
   }
   return children;
 }

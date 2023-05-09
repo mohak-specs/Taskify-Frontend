@@ -45,6 +45,10 @@ const CreateTask = () => {
     if(token){
       getAccountData(token)
     }
+    else{
+      navigate('/',{state:{redirectUrl:`/create`}})
+      toast.error('You need to login first to see task page',{toastId:'toast8'})
+    }
   },[])
 
   const handleChange=(e)=>{

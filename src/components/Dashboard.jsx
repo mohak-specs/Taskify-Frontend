@@ -13,9 +13,11 @@ import StatCard from "./StatCard"
 import { useTitle } from "../utils/useTitle"
 import DoughnutChart from "./DoughnutChart"
 import DashTabs from "./DashTabs"
+import { useNavigate } from "react-router-dom"
 
 const Dashboard = () => {
   const user=fetchUser()
+  const navigate = useNavigate()
   const {token,data}=user?user:{token:'',data:''}
   const [taskData,setTaskData]=useState(null)
   const [notifyData,setNotifyData]=useState(null)
@@ -49,6 +51,9 @@ const Dashboard = () => {
     if(token){
       getAllTasks(token)
       getAllNotifys(token)
+    }else{
+      navigate('/',{state:{redirectUrl:`/dashboard`}})
+      toast.error('You need to login first to see task page',{toastId:'toast6'})
     }
   },[])
   return (

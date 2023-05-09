@@ -103,6 +103,12 @@ const TaskList = () => {
       getAllTasks(token)
     }
   },[selectedOption])
+  useEffect(()=>{
+    if(!token){
+      navigate('/',{state:{redirectUrl:`/tasks`}})
+      toast.error('You need to login first to see task page',{toastId:'toast7'})
+    }
+  },[])
   return (
     <div>
       <Loader isLoading={isLoading}/>

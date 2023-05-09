@@ -2,17 +2,18 @@ import { Button, Grid,Modal,Paper,Stack, TextField, Typography,Box, FormControl,
 import {AccountCircleRounded, Visibility, VisibilityOff} from '@mui/icons-material'
 import Navbar from "./Navbar"
 import fetchUser from "../utils/fetchUser"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import axios from "axios"
 import Loader from "./Loader"
 import { deepOrange } from "@mui/material/colors"
 import {useTitle} from '../utils/useTitle'
+import { useNavigate } from "react-router-dom"
 
 const Account = () => {
   const user=fetchUser()
   const {token,data}=user?user:{token:'',data:''}
-
+  const navigate=useNavigate()
   const [isModalOpen,setIsModalOpen]=useState(false)
   const [showPassword,setShowPassword]=useState(false)
   const [isLoading,setIsLoading]=useState(false)
@@ -61,6 +62,12 @@ const Account = () => {
     setConfirmNewPassword('')
   }
   useTitle('Account')
+  useEffect(()=>{
+    if(!token){
+      navigate('/',{state:{redirectUrl:`/account`}})
+      toast.error('You need to login first to see task page',{toastId:'toast9'})
+    }
+  },[])
   return (
     <div>
       {/* <Navbar title={'Account Details'}/> */}

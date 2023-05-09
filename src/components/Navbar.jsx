@@ -61,7 +61,7 @@ const Navbar = (props) => {
     const handleLogout=()=>{
         setAnchorElUser(null)
         localStorage.clear()
-        navigate('/')
+        navigate('/',{replace:true})
         toast.success('You have successfully logged out')
     }
     const drawer=(

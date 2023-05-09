@@ -135,6 +135,10 @@ const TaskCard = () => {
       getTaskData(taskId,token)
       getTaskUpdates(taskId,token)
     }
+    else{
+      navigate('/',{state:{redirectUrl:`/tasks/${taskId}`}})
+      toast.error('You need to login first to see task page',{toastId:'toast5'})
+    }
   },[])
 
   return (
@@ -148,7 +152,7 @@ const TaskCard = () => {
             <Typography variant='subtitle1' component='h4' sx={{fontSize:24,letterSpacing:'1px',fontFamily:'inherit'}}>{taskData?.tname}</Typography>
             {taskData?.author._id===data?._id && (
               <div>
-                {taskData.completed ? (
+                {taskData?.completed ? (
                   <Button onClick={onClickComplete} startIcon={<DoneAllOutlined/>} variant='contained' size='medium' color='success'>COMPLETED</Button>
                 ):(
                   <Button onClick={onClickComplete} startIcon={<DoneAllOutlined/>} variant='outlined' size='medium' sx={{color:'#999',borderColor:'#999','&:hover':{color:'green',bgcolor:'rgba(0,255,0,0.1)',borderColor:'green'}}}>MARK COMPLETE</Button>
