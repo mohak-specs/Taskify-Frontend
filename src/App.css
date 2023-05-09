@@ -7,6 +7,9 @@
     font-family: 'Roboto',Arial, Helvetica, sans-serif;
 }
 
+.disabled{
+    cursor: not-allowed;
+}
 .MuiDataGrid-root .MuiDataGrid-cell:focus-within {
     outline: none !important;
 }
@@ -67,11 +70,47 @@ h1{
     color: #fff;
     font-size: 1.4em;
 }
-
-.nav__menu__link{
-    cursor: pointer;
+nav a {
+    text-decoration: none;
+    color: black;
 }
-
+nav a[disabled] {
+    pointer-events: none;
+    color: gray;
+    text-decoration: none;
+}
+.nav__menu__link{
+    color: #f3efef;
+    text-decoration: none;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.nav__menu__link:hover{
+    background-color: rgba(242, 242, 242,0.2);
+    border-radius: 2px;
+    border-bottom: 4px solid white;
+}
+.container{
+    height: 100vh;
+}
+.auth-form{
+    height: 90dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.auth-box{
+    width: 480px;
+    max-height: 600px;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 12px;
+    border-radius: 8px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
 .layout__title{
     margin-top: 20px;
     margin-left: 20px;
@@ -177,7 +216,16 @@ textarea{
 .title__blue{
     color: #2693E2;
 }
-
+.forgot-p{
+    text-align: center;
+    margin-top: 2px;
+    font-size: 1.1em;
+    color: #2693E2;
+}
+.forgot-p:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
 .blue__btn{
     text-decoration: none;
     border: none;

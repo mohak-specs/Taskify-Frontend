@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import landingBg from '../assets/landing-bg.svg'
 import axios from 'axios'
 import {toast} from 'react-toastify'
-import { useNavigate } from "react-router-dom"
+import { useNavigate,NavLink } from "react-router-dom"
 import {AiOutlineEye,AiOutlineEyeInvisible} from 'react-icons/ai'
 import Loader from '../components/Loader'
 import fetchUser from "../utils/fetchUser"
@@ -61,12 +61,12 @@ const Landing = () => {
       <img src={landingBg} className='landing_bg'/>
       <div className="layout">
         <nav className='layout__nav'>
-          <div className="nav__title__landing">Taski<span className='title__blue'>Fy</span></div>
-          {/* <div className='nav__menu'>
-            <div className='nav__menu__link'>Contact</div>
-            <div className='nav__menu__link'>Login</div>
-            <div className='nav__menu__link'>Register</div>
-          </div> */}
+          <NavLink to={'/'} className="nav__title__landing">Taski<span className='title__blue'>Fy</span></NavLink>
+          <div className='nav__menu'>
+            <NavLink className='nav__menu__link' disabled>Contact</NavLink>
+            <NavLink to={'/'} className='nav__menu__link'>Login</NavLink>
+            <NavLink className='nav__menu__link' disabled>Register</NavLink>
+          </div>
         </nav>
         <div className="layout__title">
           <p className='main__title'>Taski<span className='title__blue'>Fy</span></p>
@@ -96,6 +96,7 @@ const Landing = () => {
                {showPassword ? <AiOutlineEyeInvisible className="pwd_icon" onClick={togglePassword} size={28}/>:<AiOutlineEye className="pwd_icon" onClick={togglePassword} size={28}/>}
             </div>
             <button onClick={handleSubmit} className='blue__btn'><h2>Login</h2></button>
+            <p className="forgot-p" onClick={()=>navigate('/auth/forgot')}>Forgotten password?</p>
           </form>
         </div>
       </div>

@@ -1,5 +1,9 @@
 import { Route, Routes } from 'react-router-dom'
 import Landing from './pages/Landing'
+import AuthPage from './pages/AuthPage'
+import Forgot from './components/Forgot'
+import PasswordOTP from './components/PasswordOTP'
+import ResetPassword from './components/ResetPassword'
 import Home from './pages/Home'
 import TaskCard from './components/TaskCard'
 import FirstLogin from './pages/FirstLogin'
@@ -17,9 +21,14 @@ axios.defaults.baseURL='http://172.30.6.96:3500/api'
 function App() {
   return (
     <Routes>
-      <Route exact path='/' element={<Landing/>}/>
-      <Route path='/first' element={<FirstLogin/>}/>
+      <Route path='/' element={<Landing/>}/>
+      <Route path='/auth' element={<AuthPage/>}>
+        <Route path='forgot' element={<Forgot/>}/>
+        <Route path='checkotp/:resetToken' element={<PasswordOTP/>}/>
+        <Route path='reset/:resetToken' element={<ResetPassword/>}/>
+      </Route>
       <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}>
+        <Route path='/first' element={<FirstLogin/>}/>
         <Route path='dashboard' element={<Dashboard/>}/>
         <Route path="tasks" element={<TaskList/>}/>
         <Route path="tasks/:taskId" element={<TaskCard/>}/>
