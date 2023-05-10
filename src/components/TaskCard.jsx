@@ -51,7 +51,8 @@ const TaskCard = () => {
       setTaskData(res.data)
       setUpdateStatus(res.data.status)
     }catch(err){
-      toast.error(err?.response?.data?.message)
+      toast.error(err?.response?.data?.message,{toastId:'toast11'})
+      navigate('/dashboard',{replace:true})
     }finally{
       setIsLoading(false)
     }
@@ -63,7 +64,8 @@ const TaskCard = () => {
       const res=await axios.get(`/update/${taskId}`,{headers:{Authorization:`Bearer ${authToken}`}})
       setTaskUpdates(res.data)
     }catch(err){
-      toast.error('Error while fetching task updates')
+      toast.error('Error while fetching task updates',{toastId:'toast10'})
+      navigate('/dashboard',{replace:true})
     }finally{
       setisUpdateLoading(false)
     }
