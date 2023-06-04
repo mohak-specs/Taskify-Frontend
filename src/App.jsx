@@ -15,8 +15,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import Dashboard from './components/Dashboard'
 import Account from './components/Account'
 import './App.css'
-axios.defaults.baseURL='http://172.30.6.96:3500/api'
-// axios.defaults.baseURL='http://localhost:3500/api'
+// axios.defaults.baseURL='http://172.30.6.96:3500/api'
+axios.defaults.baseURL='http://localhost:3500/api'
 // axios.defaults.baseURL='https://taskifyy.up.railway.app/api';
 function App() {
   return (
@@ -27,8 +27,8 @@ function App() {
         <Route path='checkotp/:resetToken' element={<PasswordOTP/>}/>
         <Route path='reset/:resetToken' element={<ResetPassword/>}/>
       </Route>
+      <Route path='/first' element={<FirstLogin/>}/>
       <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}>
-        <Route path='/first' element={<FirstLogin/>}/>
         <Route path='dashboard' element={<Dashboard/>}/>
         <Route path="tasks" element={<TaskList/>}/>
         <Route path="tasks/:taskId" element={<TaskCard/>}/>

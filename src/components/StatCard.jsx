@@ -1,9 +1,9 @@
 import {Paper} from '@mui/material'
-const StatCard = (props) => {
+const StatCard = (props) => { 
   return (
     <Paper elevation={4} className="stat__card" sx={{borderRadius:'8px'}}>
         <div className="stat__content">
-            <h1>{props.statData}</h1>
+            <h1>{props.statData ? props.statData : 0}</h1>
             <p>{props.statType}</p>
         </div>
         <div className="icon">

@@ -8,21 +8,21 @@ ChartJS.register(ArcElement,Tooltip,Legend,ChartDataLabels);
 const DoughnutChart = ({stats}) => {
     const labels=[]
     const arrData=[]
-    if(stats?.numOpenedTask){
+    if(stats?.numOpenedTasks){
         labels.push('Open')
-        arrData.push(stats?.numOpenedTask)
+        arrData.push(stats?.numOpenedTasks)
     }
-    if(stats?.numProgressTask){
+    if(stats?.numProgressTasks){
         labels.push('In Progress')
-        arrData.push(stats?.numProgressTask)
+        arrData.push(stats?.numProgressTasks)
     } 
-    if(stats?.numHoldTask){
+    if(stats?.numHoldTasks){
         labels.push('On Hold')
-        arrData.push(stats?.numHoldTask)
+        arrData.push(stats?.numHoldTasks)
     } 
-    if(stats?.numClosedTask){
+    if(stats?.numClosedTasks){
         labels.push('Closed')
-        arrData.push(stats?.numClosedTask)
+        arrData.push(stats?.numClosedTasks)
     } 
     const data={
         labels,

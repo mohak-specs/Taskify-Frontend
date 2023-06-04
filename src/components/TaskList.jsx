@@ -18,7 +18,7 @@ const TaskList = () => {
   const [selectedOption,setSelectedOption]=useState('All Tasks')
   const [taskData,setTaskData]=useState(null)
   const [isLoading,setIsLoading]=useState(false)
-  const [pageSize,setPageSize]=useState(15)
+  const [pageSize,setPageSize]=useState(25)
 
   const handleRowClick=(params)=>{
     navigate(`/tasks/${params.row._id}`)
@@ -89,7 +89,8 @@ const TaskList = () => {
   const getAllTasks=async(authToken)=>{
     try{
       setIsLoading(true)
-      const res=await axios.get(`/tasks?byLoggedUser=${selectedOption!=='All Tasks'?true:''}`,{headers:{Authorization:`Bearer ${authToken}`}})
+      const res=await axios.get(`/tasks?byLoggedUser=${selectedOption=='me'?true:''}&showDeptWise=${selectedOption==='dept'?true:''}`,
+      {headers:{Authorization:`Bearer ${authToken}`}})
       setTaskData(res.data)
     }catch(err){
       toast.error(err?.response?.data?.message)
@@ -125,7 +126,10 @@ const TaskList = () => {
                 onChange={(e)=>setSelectedOption(e.target.value)}
               >
                 <MenuItem value='All Tasks'>All Tasks</MenuItem>
-                <MenuItem value='Created By You'>Created By You</MenuItem>
+                <MenuItem value='me'>Created By You</MenuItem>
+                {data?.role === 'department head' && (
+                  <MenuItem value='dept'>By Department</MenuItem>
+                )}
               </Select>
           </FormControl>
           <Button 
@@ -146,7 +150,7 @@ const TaskList = () => {
           getRowId={row=>row?._id}
           getRowHeight={()=>'auto'}
           components={{Toolbar:GridToolbar}}
-          rowsPerPageOptions={[15,30,50]}
+          rowsPerPageOptions={[25,75,150]}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize)=>setPageSize(newPageSize)}
           disableSelectionOnClick

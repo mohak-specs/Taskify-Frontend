@@ -3,8 +3,7 @@ import fetchUser from "../utils/fetchUser"
 import axios from "axios"
 import { toast } from "react-toastify"
 import Loader from "./Loader"
-import {Typography,Paper, Stack} from '@mui/material'
-
+import {Typography,Paper, Stack,FormGroup,FormControlLabel,Switch} from '@mui/material'
 // Icons
 import {AiFillFolderOpen} from 'react-icons/ai'
 import {IoCheckmarkDone} from 'react-icons/io5'
@@ -15,6 +14,7 @@ import DoughnutChart from "./DoughnutChart"
 import DashTabs from "./DashTabs"
 import { useNavigate } from "react-router-dom"
 
+
 const Dashboard = () => {
   const user=fetchUser()
   const navigate = useNavigate()
@@ -22,11 +22,12 @@ const Dashboard = () => {
   const [taskData,setTaskData]=useState(null)
   const [notifyData,setNotifyData]=useState(null)
   const [isLoading,setIsLoading]=useState(false)
+  const [checked,setChecked] = useState(false)
 
   const getAllTasks=async(authToken)=>{
     try{
       setIsLoading(true)
-      const res=await axios.get('/tasks',{headers:{Authorization:`Bearer ${authToken}`}})
+      const res=await axios.get(`/tasks?showDeptWise=${checked?true:''}`,{headers:{Authorization:`Bearer ${authToken}`}})
       setTaskData(res.data)
     }catch(err){
       toast.error(err?.response?.data?.message)
@@ -55,12 +56,26 @@ const Dashboard = () => {
       navigate('/',{state:{redirectUrl:`/dashboard`}})
       toast.error('You need to login first to see task page',{toastId:'toast6'})
     }
-  },[])
+  },[checked])
   return (
     <div style={{height:'90%'}}>
       <Loader isLoading={isLoading}/>
       {/* <Navbar title={'Dashboard'}/> */}
-      <p className="dash__welcome">Welcome, {data?.name}</p>
+      <p className="dash__welcome">
+        <p>Welcome, {data?.name}</p>
+        {data?.role === 'department head' && (
+          <FormGroup>
+            <FormControlLabel 
+              control={<Switch
+                  checked={checked}
+                  onChange={(e)=>setChecked(e.target.checked)}
+                />
+              } 
+              label='Show Department Wise'
+            />
+          </FormGroup>
+        )}
+      </p>
       <div className="dashboard__container">
         <div className="dashboard__overview">
           <div className="dashboard__charts">
@@ -89,9 +104,9 @@ const Dashboard = () => {
           </Paper>
         </div>
         <div className="dashboard__stats">
-          <StatCard statType={'TASKS OPENED'} statData={taskData?.stats?.numOpenedTask} icon={AiFillFolderOpen}/>
+          <StatCard statType={'TASKS OPENED'} statData={taskData?.stats?.numOpenedTasks} icon={AiFillFolderOpen}/>
           <StatCard statType={'UNREAD TASK UPDATES'} statData={notifyData?notifyData.unread:0} icon={IoMdNotificationsOutline}/>
-          <StatCard statType={'TASKS COMPLETED'} statData={taskData?.stats?.numCompletedTask} icon={IoCheckmarkDone}/>
+          <StatCard statType={'TASKS COMPLETED'} statData={taskData?.stats?.numCompletedTasks} icon={IoCheckmarkDone}/>
         </div>
       </div>
     </div>

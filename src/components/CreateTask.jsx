@@ -104,6 +104,7 @@ const CreateTask = () => {
       <Loader isLoading={isLoading}/>
       <div className='create__container'>
       <form onSubmit={handleSubmit} className='create__form'>
+        <Typography variant='h4' sx={{margin:'0 auto',fontWeight:600}}>Create Task</Typography>
         <div className='create__form__child'>
         <Typography variant='subtitle1' component='h1'>*Task name and Due date are required</Typography>
         <label htmlFor="tname">Task Name</label>

@@ -149,7 +149,7 @@ const TaskCard = () => {
       {/* <Navbar title={'Task Card'}/> */}
     <Grid container spacing={1} sx={{marginTop:'2px'}}>
       <Grid item xs={12} md={6}>
-        <Paper elevation={4} sx={{p:'6px'}}>
+        <Paper elevation={4} sx={{p:'8px'}}>
           <div className='task__title__row'>
             <Typography variant='subtitle1' component='h4' sx={{fontSize:24,letterSpacing:'1px',fontFamily:'inherit'}}>{taskData?.tname}</Typography>
             {taskData?.author._id===data?._id && (
@@ -221,7 +221,7 @@ const TaskCard = () => {
           )}
         </Stack>
         <Divider sx={{borderBottomWidth:5}} textAlign='center'><Typography variant='h6' sx={{color:'#000080'}}>Update Task</Typography></Divider>
-        {taskData?.assignTo.map((user)=>user._id).concat([taskData?.author._id]).includes(data?._id) && taskData?.status!=='COMPLETED' && (
+        {(taskData?.assignTo.map((user)=>user._id).concat([taskData?.author._id]).includes(data?._id) || (data?.role ==='department head' && taskData?.author?.dept === data?.dept)) && taskData?.status!=='COMPLETED' && (
             <form onSubmit={handleUpdateSubmit}>
             <FormControl sx={{width:'100%',display:'flex',flexDirection:'column',gap:'4px'}}>
             <Stack direction='row' justifyContent='space-between' alignItems='center'>
@@ -244,7 +244,7 @@ const TaskCard = () => {
                   value={updateStatus}
                   label='Update Status'
                   onChange={(e)=>setUpdateStatus(e.target.value)}
-                  sx={{bgcolor:'#f9f9f9',width:'100%'}}
+                  sx={{bgcolor:'#f9f9f9'}}
                   size='small'
                 >
                   <MenuItem value='OPEN'>OPEN</MenuItem>

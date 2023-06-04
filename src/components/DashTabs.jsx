@@ -44,7 +44,7 @@ const DashTabs = ({tasks}) => {
     <Paper elevation={4} sx={{width:'100%'}}>
       <Box sx={{borderBottom:1,borderColor:'divider'}}>
         <Box sx={{width:'100%',ml:'20px'}}>
-          <Typography variant="h6" sx={{marginTop:'8px'}}>Your work</Typography>
+          <Typography variant="h6" sx={{marginTop:'8px'}}>Latest 3 Tasks</Typography>
         </Box>
         <Tabs value={tabValue} onChange={handleChange} aria-label='task tabs'>
           <Tab label="OPEN" {...allyProps(0)}/>
