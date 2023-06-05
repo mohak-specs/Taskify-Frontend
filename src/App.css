@@ -363,8 +363,10 @@ hr {
 .dashboard__stats{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    gap: 24px;
+    max-width: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 .dashboard__tabs{
     flex-grow: 1;

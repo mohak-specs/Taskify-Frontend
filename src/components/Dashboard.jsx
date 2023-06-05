@@ -8,6 +8,8 @@ import {Typography,Paper, Stack,FormGroup,FormControlLabel,Switch} from '@mui/ma
 import {AiFillFolderOpen} from 'react-icons/ai'
 import {IoCheckmarkDone} from 'react-icons/io5'
 import {IoMdNotificationsOutline} from 'react-icons/io'
+import {GrInProgress} from 'react-icons/gr'
+import {TbCalendarOff} from 'react-icons/tb'
 import StatCard from "./StatCard"
 import { useTitle } from "../utils/useTitle"
 import DoughnutChart from "./DoughnutChart"
@@ -106,6 +108,8 @@ const Dashboard = () => {
         <div className="dashboard__stats">
           <StatCard statType={'TASKS OPENED'} statData={taskData?.stats?.numOpenedTasks} icon={AiFillFolderOpen}/>
           <StatCard statType={'UNREAD TASK UPDATES'} statData={notifyData?notifyData.unread:0} icon={IoMdNotificationsOutline}/>
+          <StatCard statType={'TASKS IN PROGRESS'} statData={taskData?.stats?.numProgressTasks} icon={GrInProgress}/>
+          <StatCard statType={'TOTAL LATE TASKS'} statData={taskData?.stats?.totalLateTasks} icon={TbCalendarOff}/>
           <StatCard statType={'TASKS COMPLETED'} statData={taskData?.stats?.numCompletedTasks} icon={IoCheckmarkDone}/>
         </div>
       </div>
