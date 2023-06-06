@@ -16,7 +16,7 @@ const TaskBar = ({taskData}) => {
           width:'100%',
           bgcolor:'rgba(255, 255, 249,0.7)',
           borderRadius:'8px',
-          p:'0 8px',
+          p:'6px 8px',
           height:'2.5em',
           transition:'all ease-in-out 0.2s',
           '&:hover':{
@@ -26,21 +26,29 @@ const TaskBar = ({taskData}) => {
           }
         }}
        >
-         <Stack direction='row'>
-           <Typography variant="subtitle2">{taskData?.tname}</Typography>
-         </Stack>
-         <Stack 
-           direction='row' 
-           alignItems='center'
-           justifyContent='space-evenly'
-           spacing={2}
+        <Box
+          sx={{
+            maxWidth:'420px',
+            flex:'1 1 55%',
+          }}
+        >
+          <Typography variant="subtitle2" sx={{ overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{taskData?.tname}</Typography>
+        </Box>
+         <Box
+          sx={{
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'space-around',
+            gap:'4px',
+            flex:'1 1 45%'
+          }}
          >
            <Chip label={taskData?.status} variant='outlined' color={taskData?findColorByStatus(taskData.status):'default'}/>
            <Typography variant="overline" sx={{overflowWrap:'break-word'}}>Due date on {getDate(taskData?.dueDate)}</Typography>
-         </Stack>
+         </Box>
        </Box>
       ):(
-        <h1 style={{fontSize:400,position:'fixed'}}>No data...</h1>
+        <h1 style={{fontSize:400,maxHeight:'100%'}}>No data...</h1>
       )}
     </>
     

@@ -339,7 +339,7 @@ hr {
     justify-content: space-between;
     align-items: center;
     padding: 4px 20px;
-    box-shadow: 2px 2px 3px #000;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
 
 .dashboard__container{
@@ -363,8 +363,6 @@ hr {
 .dashboard__stats{
     display: flex;
     flex-direction: column;
-    max-width: 100vh;
-    justify-content: center;
     align-items: center;
     gap: 8px;
 }

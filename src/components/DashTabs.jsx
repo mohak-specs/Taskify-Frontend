@@ -14,7 +14,7 @@ const TabPanel=(props)=>{
       {...other}
     >
       {value===index && (
-        <Box sx={{p:3,display:'flex',flexDirection:'column',justifyContent:'space-between',gap:'32px',bgcolor:'#F8F8F8'}}>
+        <Box sx={{p:3,display:'flex',flexDirection:'column',justifyContent:'space-between',gap:'32px',bgcolor:'#F8F8F8',height:'100%',maxHeight:'200px',overflowY:'auto',overflowX:'hidden'}}>
           {children}
         </Box>
       )}
@@ -44,26 +44,38 @@ const DashTabs = ({tasks}) => {
     <Paper elevation={4} sx={{width:'100%'}}>
       <Box sx={{borderBottom:1,borderColor:'divider'}}>
         <Box sx={{width:'100%',ml:'20px'}}>
-          <Typography variant="h6" sx={{marginTop:'8px'}}>Latest 3 Tasks</Typography>
+          <Typography variant="h6" sx={{marginTop:'8px'}}>Tasks Overview (Sorted by Due Date)</Typography>
         </Box>
         <Tabs value={tabValue} onChange={handleChange} aria-label='task tabs'>
           <Tab label="OPEN" {...allyProps(0)}/>
           <Tab label="CLOSED" {...allyProps(1)}/>
-          <Tab label="COMPLETED" {...allyProps(2)}/>
+          <Tab label="IN PROGRESS" {...allyProps(2)}/>
+          <Tab label="ON HOLD" {...allyProps(3)}/>
+          <Tab label="COMPLETED" {...allyProps(4)}/>
         </Tabs>
       </Box>
       <TabPanel value={tabValue} index={0}>
-        {tasks?.sort((a,b)=>new Date(a?.dueDate).getTime()-new Date(b?.dueDate).getTime()).filter((task)=>task?.status==='OPEN').slice(0,3).map((taskData)=>(
+        {tasks?.sort((a,b)=>new Date(b?.dueDate).getTime() - new Date(a?.dueDate).getTime()).filter((task)=>task?.status==='OPEN').map((taskData)=>(
           <TaskBar taskData={taskData}/>
         ))}
       </TabPanel>
       <TabPanel value={tabValue} index={1}>
-        {tasks?.sort((a,b)=>new Date(a?.dueDate).getTime()-new Date(b?.dueDate).getTime()).filter((task)=>task?.status==='CLOSED').slice(0,3).map((taskData)=>(
+        {tasks?.sort((a,b)=>new Date(b?.dueDate).getTime() - new Date(a?.dueDate).getTime()).filter((task)=>task?.status==='CLOSED').map((taskData)=>(
           <TaskBar taskData={taskData}/>
         ))}
       </TabPanel>
       <TabPanel value={tabValue} index={2}>
-      {tasks?.sort((a,b)=>new Date(a?.dueDate).getTime()-new Date(b?.dueDate).getTime()).filter((task)=>task?.completed===true).slice(0,3).map((taskData)=>(
+        {tasks?.sort((a,b)=>new Date(b?.dueDate).getTime() - new Date(a?.dueDate).getTime()).filter((task)=>task?.status==='IN PROGRESS').map((taskData)=>(
+          <TaskBar taskData={taskData}/>
+        ))}
+      </TabPanel>
+      <TabPanel value={tabValue} index={3}>
+        {tasks?.sort((a,b)=>new Date(b?.dueDate).getTime() - new Date(a?.dueDate).getTime()).filter((task)=>task?.status==='ON HOLD').map((taskData)=>(
+          <TaskBar taskData={taskData}/>
+        ))}
+      </TabPanel>
+      <TabPanel value={tabValue} index={4}>
+      {tasks?.sort((a,b)=>new Date(b?.dueDate).getTime() - new Date(a?.dueDate).getTime()).filter((task)=>task?.completed===true).map((taskData)=>(
           <TaskBar taskData={taskData}/>
         ))}
       </TabPanel>
