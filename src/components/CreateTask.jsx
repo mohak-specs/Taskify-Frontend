@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 import fetchUser from '../utils/fetchUser'
 import Loader from './Loader'
 import {useNavigate} from 'react-router-dom'
 import { Autocomplete,Button,Stack,TextField,Typography,Box} from '@mui/material'
+import ReactQuill from 'react-quill'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -27,6 +28,7 @@ const CreateTask = () => {
     tname:'',
     tdesc:'',
   })
+  const quillRef = useRef(null)
   const [autoKey,setAutoKey]=useState(0)
   const getAccountData=async(authToken)=>{
     try{
@@ -75,7 +77,7 @@ const CreateTask = () => {
     }
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
     e.preventDefault()
     const assignTo=selectedOption?.map((user)=>user._id)
     const data={
@@ -84,13 +86,14 @@ const CreateTask = () => {
       startDate:startDateChanged?startDate.$d.toISOString():startDate,
       dueDate:dueDate?.$d.toISOString()
     }
+    console.log(data)
     if(!formData.tname){
       toast.error('Task name is required.')
     }
     else if(!dueDate){
       toast.error('Due date is required.')
     }else{
-      postTask(data,token)
+      await postTask(data,token)
     }
     setFormData({tdesc:'',tname:''})
     setAutoKey((prev)=>prev+1)
@@ -99,6 +102,7 @@ const CreateTask = () => {
     setStartDate(dayjs().startOf('day').toISOString())
     setStartDateChanged(false)
   }
+  
   return (
     <div>
       <Loader isLoading={isLoading}/>
@@ -118,19 +122,29 @@ const CreateTask = () => {
           autoComplete='off'
           required/>
         <label htmlFor='tdesc'>Task Description</label>
-        <textarea 
+        {/* <textarea 
           placeholder='Enter task description here...'
           id='tdesc'
           name='tdesc'
           value={formData.tdesc}
-          onChange={handleChange}></textarea>
+          onChange={handleChange}></textarea> */}
+        <div className="editor-container">
+        <ReactQuill
+          placeholder='Enter task description here...'
+          ref={quillRef}
+          value={formData.tdesc}
+          onChange={(value) => setFormData({ ...formData, tdesc: value })}
+          style={{height:'100%'}}  
+        />
+        </div>
+        
         <label htmlFor='tags-outlined'>Assign Task to</label>
         <Stack spacing={3} sx={{width:'100%',backgroundColor:'#fff','&:hover':{borderColor:'blue'}}}>
           <div>
           <Autocomplete
             key={autoKey}
             multiple
-            sx={{maxWidth:'540px',margin:0}}
+            sx={{maxWidth:'540px',margin:0,width:'100%',maxHeight:'50px',overflowY:'auto'}}
             id='tags-filled'
             size='small'
             options={accountData}

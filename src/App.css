@@ -408,7 +408,8 @@ hr {
 .create__form__child{
     display: flex;
     flex-direction: column;
-    max-width: 640px;
+    gap: 8px;
+    max-width: 520px;
 }
 .create__form__child>label{
     font-size: 1.2em;
@@ -420,6 +421,10 @@ hr {
     margin-bottom: 1em;
     border-radius: 4px;
     border: 1px solid #969696;
+}
+.ql-editor{
+    min-height: 0 !important;
+    height: 80px !important;
 }
 #tags-filled{
     background:none;
