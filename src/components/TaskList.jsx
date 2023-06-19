@@ -178,12 +178,12 @@ const TaskList = () => {
               color: "#1976d2",
               fontSize: 20,
             },
-            "& .MuiDataGrid-virtualScrollerRenderZone": {
-              "& .MuiDataGrid-row": {
-                "&:nth-child(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" }
-              },
+            // "& .MuiDataGrid-virtualScrollerRenderZone": {
+            //   "& .MuiDataGrid-row": {
+            //     "&:nth-child(2n)": { backgroundColor: "rgba(235, 235, 235, .7)" }
+            //   },
               
-            }
+            // }
           }}
         />
       </div>
