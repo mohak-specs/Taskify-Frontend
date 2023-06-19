@@ -411,7 +411,7 @@ hr {
     align-items: center;
 }
 .create__form{
-    margin-top: 24px;
+    margin-top: 6px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -420,7 +420,8 @@ hr {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     max-width: 640px;
     border-radius: 10px;
-    padding: 2em !important;
+    border:2px solid lightslategrey;
+    padding: 2rem !important;
 }
 .create__form__child{
     display: flex;

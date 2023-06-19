@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import fetchUser from '../utils/fetchUser'
 import Loader from './Loader'
 import {useNavigate} from 'react-router-dom'
-import { Autocomplete,Button,Stack,TextField,Typography,Box} from '@mui/material'
+import { Autocomplete,Button,Stack,TextField,Typography,Box,Switch,FormGroup,FormControlLabel, Select,MenuItem} from '@mui/material'
 import ReactQuill from 'react-quill'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
@@ -24,10 +24,13 @@ const CreateTask = () => {
   const [startDate,setStartDate]=useState(dayjs().startOf('day').toISOString())
   const [startDateChanged,setStartDateChanged]=useState(false)
   const [dueDate,setDueDate]=useState(null)
+  const [recurCheck,setRecurCheck] = useState(false)
+  const [recurAmount,setRecurAmount] = useState()
   const [formData,setFormData]=useState({
     tname:'',
     tdesc:'',
   })
+  const [tnameTouched,setTnameTouched] = useState(false)
   const quillRef = useRef(null)
   const [autoKey,setAutoKey]=useState(0)
   const getAccountData=async(authToken)=>{
@@ -101,7 +104,6 @@ const CreateTask = () => {
     setStartDate(dayjs().startOf('day').toISOString())
     setStartDateChanged(false)
   }
-  
   return (
     <div>
       <Loader isLoading={isLoading}/>
@@ -109,17 +111,41 @@ const CreateTask = () => {
       <form onSubmit={handleSubmit} className='create__form'>
         <Typography variant='h4' sx={{margin:'0 auto',fontWeight:600}}>Create Task</Typography>
         <div className='create__form__child'>
-        <Typography variant='subtitle1' component='h1'>*Task name and Due date are required</Typography>
-        <label htmlFor="tname">Task Name</label>
-        <input 
-          type="text" 
-          id='tname' 
-          name='tname' 
+        <Box
+          sx={{
+            display:'flex',
+            alignItems:'center',
+            justifyContent:'space-between',
+          }}
+        >
+          <Typography variant='subtitle1' component='h1'>*Task name and Due date are required</Typography>
+          <FormGroup>
+            <FormControlLabel 
+              control={<Switch
+                  checked={recurCheck}
+                  onChange={(e)=>setRecurCheck(e.target.checked)}
+                  color='error'
+                />
+              } 
+              label='Recurring Task'
+            />
+          </FormGroup>
+        </Box>
+        <TextField
+          error={!formData.tname && tnameTouched}
+          type='text'
+          id='tname'
+          name='tname'
           value={formData.tname}
           onChange={handleChange}
-          placeholder='Task name' 
+          onBlur={(e)=>setTnameTouched((prev)=>!prev)}
+          placeholder='Enter task name'
           autoComplete='off'
-          required/>
+          size='small'
+          label='Task name'
+          helperText={!formData.tname && tnameTouched?"Error":""}
+          required
+        />
         <label htmlFor='tdesc'>Task Description</label>
         <div className="editor-container">
         <ReactQuill
@@ -178,11 +204,29 @@ const CreateTask = () => {
               value={dueDate}
               inputFormat='DD/MM/YYYY'
               onChange={(newValue)=>setDueDate(newValue)}
-              renderInput={(params)=> <TextField {...params}/>}
+              renderInput={(params)=> (<TextField 
+                {...params} 
+                required
+              />  
+              )}
               className='date__picker'
             />
           </LocalizationProvider>
         </div>
+        {recurCheck && (
+            <TextField
+              error={recurAmount<=0}
+              type='number'
+              placeholder='Enter number of days'
+              value={recurAmount}
+              onChange={(e)=>setRecurAmount(e.target.value)}
+              autoComplete='off'
+              size='small'
+              label='Recurring days'
+              helperText={recurAmount<=0?'Recurring days must be greater than 0':''}
+              required
+            />
+          )}
         <Button type='submit' variant='contained' size='large' fullWidth sx={{mt:2,'&:hover':{bgcolor:'#1565c0'}}}>Add Task</Button>
         </div>
       </form>
