@@ -6,6 +6,7 @@ import {Stack,Badge,Typography, Select, FormControl, InputLabel, MenuItem, Butto
 import MailIcon from '@mui/icons-material/Mail';
 import AddIcon from '@mui/icons-material/Add';
 import { DataGrid,GridToolbar } from "@mui/x-data-grid"
+import {htmlToText} from 'html-to-text'
 import dayjs from "dayjs"
 import fetchUser from "../utils/fetchUser"
 import Loader from "./Loader"
@@ -32,14 +33,14 @@ const TaskList = () => {
       headerClassName: 'task__list__header',
       sortable:false,
       width:250,
-      renderCell:params=><Typography variant="inherit" sx={{overflowWrap:'break-word'}}>{params.row?.tname}</Typography>
+      renderCell:params=><Typography variant="inherit" sx={{overflowWrap:'break-word',fontWeight:'500'}}>{params.row?.tname}</Typography>
     },
     {
       field:'tdesc',
       headerName:'Description',
       headerClassName: 'task__list__header',
       width:300,
-      renderCell:params=><Typography variant="inherit" sx={{overflowWrap:'break-word'}}>{params.row?.tdesc}</Typography>
+      renderCell:params=><Typography variant="inherit" sx={{overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{htmlToText(params.row?.tdesc)}</Typography>
     },
     {
       field:'status',
@@ -52,7 +53,7 @@ const TaskList = () => {
       headerName:'Created by',
       type:String,
       headerClassName: 'task__list__header',
-      width:220,
+      width:180,
       valueGetter:(params)=>params.row?.author?.name
     },
     {

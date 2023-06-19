@@ -51,8 +51,7 @@ const CreateTask = () => {
       navigate('/',{state:{redirectUrl:`/create`}})
       toast.error('You need to login first to see task page',{toastId:'toast8'})
     }
-  },[])
-
+  },[]) 
   const handleChange=(e)=>{
     const {name,value}=e.target
     setFormData((prev)=>({
@@ -122,12 +121,6 @@ const CreateTask = () => {
           autoComplete='off'
           required/>
         <label htmlFor='tdesc'>Task Description</label>
-        {/* <textarea 
-          placeholder='Enter task description here...'
-          id='tdesc'
-          name='tdesc'
-          value={formData.tdesc}
-          onChange={handleChange}></textarea> */}
         <div className="editor-container">
         <ReactQuill
           placeholder='Enter task description here...'

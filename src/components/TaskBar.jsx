@@ -18,10 +18,12 @@ const TaskBar = ({taskData}) => {
           borderRadius:'8px',
           p:'6px 8px',
           height:'2.5em',
+          boxShadow: 'rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px',
           transition:'all ease-in-out 0.2s',
           '&:hover':{
             cursor:'pointer',
             bgcolor:'#dfdbfb',
+            zIndex:999,
             boxShadow:'rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px'
           }
         }}

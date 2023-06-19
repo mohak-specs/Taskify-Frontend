@@ -170,7 +170,7 @@ const TaskCard = () => {
           <Stack direction='column' spacing={1} sx={{mt:'5px'}}>
             <Typography variant='subtitle1' component='h1'>Description</Typography>
             <Box sx={{height:'4rem',border:'2px solid #f1f1f1',p:'4px',borderRadius:'4px',overflowY:'auto'}}>
-              <Typography variant='body1' component='p' sx={{overflowWrap:'break-word'}}>{taskData?.tdesc}</Typography>
+              <Typography variant='body1' component='p' sx={{overflowWrap:'break-word'}} dangerouslySetInnerHTML={{__html:taskData?.tdesc}}></Typography>
             </Box>
             <Stack direction='row' spacing={1} justifyContent='flex-start' alignItems='center' sx={{mt:'1px'}}>
               <Typography variant='subtitle1' component='h1'>Created By</Typography>

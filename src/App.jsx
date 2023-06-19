@@ -18,7 +18,6 @@ import './App.css'
 import 'react-quill/dist/quill.snow.css'
 axios.defaults.baseURL='http://172.30.6.96:3500/api'
 // axios.defaults.baseURL='http://localhost:3500/api'
-// axios.defaults.baseURL='https://taskifyy.up.railway.app/api';
 function App() {
   return (
     <Routes>
