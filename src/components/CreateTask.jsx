@@ -31,6 +31,7 @@ const CreateTask = () => {
     tdesc:'',
   })
   const [tnameTouched,setTnameTouched] = useState(false)
+  const [dropTouched,setDropTouched] = useState(false)
   const quillRef = useRef(null)
   const [autoKey,setAutoKey]=useState(0)
   const getAccountData=async(authToken)=>{
@@ -88,12 +89,13 @@ const CreateTask = () => {
       startDate:startDateChanged?startDate.$d.toISOString():startDate,
       dueDate:dueDate?.$d.toISOString()
     }
-    console.log(data)
     if(!formData.tname){
       toast.error('Task name is required.')
     }
     else if(!dueDate){
       toast.error('Due date is required.')
+    }else if(recurCheck && recurAmount<1){
+      toast.error('Recurred days can\'t be less than 1')
     }else{
       await postTask(data,token)
     }
@@ -118,16 +120,17 @@ const CreateTask = () => {
             justifyContent:'space-between',
           }}
         >
-          <Typography variant='subtitle1' component='h1'>*Task name and Due date are required</Typography>
+          <Typography variant='subtitle1' component='h1' fontWeight='bold' color='#ff9800'>*Task name and Due date are required</Typography>
           <FormGroup>
             <FormControlLabel 
               control={<Switch
                   checked={recurCheck}
                   onChange={(e)=>setRecurCheck(e.target.checked)}
-                  color='error'
+                  color='primary'
                 />
               } 
-              label='Recurring Task'
+              label={<Typography variant='body1' fontWeight='bold' color='primary'>Recurring Task</Typography>}
+              labelPlacement='start'
             />
           </FormGroup>
         </Box>
@@ -152,7 +155,7 @@ const CreateTask = () => {
           placeholder='Enter task description here...'
           ref={quillRef}
           value={formData.tdesc}
-          onChange={(value) => setFormData({ ...formData, tdesc: value })}
+          onChange={(value) => setFormData({ ...formData, tdesc: value.trim() })}
           style={{height:'100%'}}  
         />
         </div>
@@ -163,13 +166,13 @@ const CreateTask = () => {
           <Autocomplete
             key={autoKey}
             multiple
-            sx={{maxWidth:'540px',margin:0,width:'100%',maxHeight:'50px',overflowY:'auto'}}
+            sx={{maxWidth:'540px',margin:0,width:'100%'}}
             id='tags-filled'
             size='small'
             options={accountData}
             getOptionLabel={(option)=>`${option?.name} (${option?.dept})`}
             renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+              <Box component="li" sx={{ maxHeight:'50px',overflowY:'auto','& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                 {option?.name} ({option?.dept}) {option?.email}
               </Box>
             )}
@@ -179,8 +182,11 @@ const CreateTask = () => {
             name='assignTo'
             renderInput={(params) => (
               <TextField
+                error={selectedOption.length==0 && dropTouched}
+                onBlur={(e)=>setDropTouched((prev)=>!prev)}
                 {...params}
                 placeholder="Enter Employee name"
+                helperText={selectedOption.length==0 && dropTouched ? 'You must assign task to atleast one employee':''}
               />
             )}
           />
