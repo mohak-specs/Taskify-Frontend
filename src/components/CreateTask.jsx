@@ -87,7 +87,8 @@ const CreateTask = () => {
       ...formData,
       assignTo,
       startDate:startDateChanged?startDate.$d.toISOString():startDate,
-      dueDate:dueDate?.$d.toISOString()
+      dueDate:dueDate?.$d.toISOString(),
+      recurAmount
     }
     if(!formData.tname){
       toast.error('Task name is required.')
