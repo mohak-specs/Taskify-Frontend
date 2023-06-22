@@ -151,7 +151,7 @@ const TaskList = () => {
           getRowId={row=>row?._id}
           getRowHeight={()=>'auto'}
           components={{Toolbar:GridToolbar}}
-          rowsPerPageOptions={[25,75,150]}
+          rowsPerPageOptions={[25,75,100]}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize)=>setPageSize(newPageSize)}
           disableSelectionOnClick

@@ -7,6 +7,7 @@ import Loader from './Loader'
 import {useNavigate} from 'react-router-dom'
 import { Autocomplete,Button,Stack,TextField,Typography,Box,Switch,FormGroup,FormControlLabel, Select,MenuItem} from '@mui/material'
 import ReactQuill from 'react-quill'
+import {modules,formats} from '../utils/quillUtil'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import dayjs from 'dayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
@@ -154,9 +155,12 @@ const CreateTask = () => {
         <div className="editor-container">
         <ReactQuill
           placeholder='Enter task description here...'
+          theme='snow'
           ref={quillRef}
           value={formData.tdesc}
-          onChange={(value) => setFormData({ ...formData, tdesc: value.trim() })}
+          modules={modules}
+          formats={formats}
+          onChange={(value) => setFormData({ ...formData, tdesc: value })}
           style={{height:'100%'}}  
         />
         </div>
