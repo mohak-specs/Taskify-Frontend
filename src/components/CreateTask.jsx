@@ -88,7 +88,7 @@ const CreateTask = () => {
       ...formData,
       assignTo,
       startDate:startDateChanged?startDate.$d.toISOString():startDate,
-      dueDate:dueDate?.$d.toISOString(),
+      dueDate:dayjs(dueDate?.$d.toISOString()).endOf('day').toISOString(),
       recurAmount
     }
     if(!formData.tname){
@@ -99,7 +99,8 @@ const CreateTask = () => {
     }else if(recurCheck && recurAmount<1){
       toast.error('Recurred days can\'t be less than 1')
     }else{
-      await postTask(data,token)
+      // await postTask(data,token)
+      console.log(data)
     }
     setFormData({tdesc:'',tname:''})
     setAutoKey((prev)=>prev+1)
