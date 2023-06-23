@@ -99,8 +99,7 @@ const CreateTask = () => {
     }else if(recurCheck && recurAmount<1){
       toast.error('Recurred days can\'t be less than 1')
     }else{
-      // await postTask(data,token)
-      console.log(data)
+      await postTask(data,token)
     }
     setFormData({tdesc:'',tname:''})
     setAutoKey((prev)=>prev+1)
